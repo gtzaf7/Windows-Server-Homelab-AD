@@ -57,8 +57,6 @@
 **Step 8:** Log into the Windows Server environment. 
 <img width="1024" height="769" alt="image" src="https://github.com/user-attachments/assets/91763cd7-1bed-4597-a8cb-2757879339a5" />
 
----
-
 ## Verification
 
 The following screenshot shows the successful login on the Windows Server.
