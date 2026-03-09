@@ -43,6 +43,7 @@
 > **Technical Explanation:** Selecting the standard option defaults to a "Server Core" installation (command-line only). The **Desktop Experience** installs the full GUI, which is essential for our lab environment to visually manage Active Directory using Microsoft Management Console (MMC) snap-ins like *Active Directory Users and Computers* and *Server Manager*.
 
 **Step 5:** Accept the licensing terms.
+
 <img width="696" height="539" alt="image" src="https://github.com/user-attachments/assets/87bad484-9d8d-4b59-93a5-c52685de422e" />
 
 **Step 6:** Select the 50 GB unallocated drive created in Phase 2 and click **Next** to begin the installation.
