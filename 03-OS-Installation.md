@@ -58,3 +58,10 @@
 <img width="1024" height="769" alt="image" src="https://github.com/user-attachments/assets/91763cd7-1bed-4597-a8cb-2757879339a5" />
 
 ---
+
+## Verification
+
+The following screenshot shows the successful login on the Windows Server.
+<br>
+<img width="1021" height="766" alt="image" src="https://github.com/user-attachments/assets/2d4a4012-c567-4e80-ae20-73a817937eb1" />
+
