@@ -121,4 +121,5 @@ If you are completely new to IT infrastructure, the technical terms above might 
 
 **The End Result:** From now on, whenever someone tries to log into *any* computer connected to this network, they are essentially walking up to the door of the VIP Club. The computer will silently ask `DC01` (the Head Bouncer): *"Is this person on the list? Did they type the correct password? Are they allowed to enter?"* We have successfully built the ultimate gatekeeper for our entire network.
 
-<img width="1408" height="768" alt="image" src="https://github.com/user-attachments/assets/d7dabd54-acb7-4192-a9b1-b50b5faba573" />
+<img width="1408" height="768" alt="image" src="https://github.com/user-attachments/assets/535996dc-339a-49fd-8e28-db536b439534" />
+
