@@ -4,7 +4,7 @@
 
 ---
 
-## Part 1: Logical Design (The Blueprint)
+## Part 1: Logical Design 
 
 Before creating any objects, a System Administrator must map out the directory structure. Instead of dumping all users and computers into the default built-in containers (which cannot receive Group Policies natively), we create a custom Root OU.
 
@@ -107,6 +107,19 @@ Now with the password complexity requirements disabled, we can follow the previo
 <img width="897" height="619" alt="Image" src="https://github.com/user-attachments/assets/33048959-f569-473f-9baf-4e2544b3b988" />
 <br>
 > **Technical Rationale (Principle of Least Privilege):** It is a critical security violation to use the default `Administrator` account for daily tasks. Creating a personalized admin account provides auditing accountability (knowing *who* did *what*) and follows standard enterprise security frameworks.
+
+**Step 7:** Populate the remaining departments with Standard Users. Following the same creation procedure (but **without** granting Domain Admin privileges), create standard employee accounts in their respective OUs:
+* Navigate to `_Corp \ Accounting \ Users` and create a standard user (e.g., First Name: `Eve`, Last Name: `Doe`, Logon name: `eve`).
+* Navigate to `_Corp \ Management \ Users` and create a standard user (e.g., First Name: `Jimmy`, Last Name: `Smith`, Logon name: `jimmy`).
+
+<br>
+<img width="631" height="134" alt="Image" src="https://github.com/user-attachments/assets/689e5c6a-1263-426b-8239-cbd51b5bf725" />
+
+<img width="652" height="209" alt="Image" src="https://github.com/user-attachments/assets/8db7ed45-edae-47c4-9d16-5ba41c679c40" />
+<br>
+
+> **Technical Rationale:** Creating standard user accounts for everyday employees is a core security principle. These accounts have restricted privileges. If an employee's laptop or tablet is compromised by malware, the attacker cannot make domain-wide changes or access sensitive server configurations, which protects the entire network.
+
 
 ---
 
