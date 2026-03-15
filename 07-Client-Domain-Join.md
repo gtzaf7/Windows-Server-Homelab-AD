@@ -26,7 +26,7 @@ Click **OK** to save.
 
 **SOMETHING IMPORTANT:** So, when I changed the Preferred DNS to the server's IP I got a response. On the other hand, when I pinged the 'homelab.local' I got this response: `Ping request could not find host homelab.local. Please check the name and try again.`
 
-**WHAT IS THE CAUSE?** Modern Windows operating systems are programmed to prioritize IPv6 over IPv4. Because this is a physical laptop connected to a home router. the router was silently assigning an IPv6 DNS server to the network adapter. The laptop prioritized this external IPv6 DNS (which knows nothing about our internal `homelab.local` domain) and completely bypassed our custom IPv4 DNS setting.
+**WHAT IS THE CAUSE?** Modern Windows operating systems are programmed to prioritize IPv6 over IPv4. Because this Virtual Machine's network adapter is bridged to the host's home network, the physical router was silently assigning an IPv6 DNS server to the virtual network adapter. The VM prioritized this external IPv6 DNS (which knows nothing about our internal `homelab.local` domain) and completely bypassed our custom IPv4 DNS setting.
 
 **HOW TO FIX IT?** 
 1. Open **Network Connections** (`ncpa.cpl`), right-click the active network adapter, and select **Properties**.
