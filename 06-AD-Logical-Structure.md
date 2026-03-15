@@ -102,7 +102,7 @@ Now with the password complexity requirements disabled, we can follow the previo
 <img width="716" height="447" alt="Image" src="https://github.com/user-attachments/assets/90ce77e7-1322-4820-8862-a508d624667a" />
 <br>
 
-**Step 6:** Grant the new user administrative privileges. Right-click the new `admin.yourname` user, select **Properties**, go to the **Member Of** tab, click **Add**, type `Domain Admins`, click **Check Names**, and then **OK**.
+**Step 6:** Grant the new user administrative privileges. Right-click the new user, select **Properties**, go to the **Member Of** tab, click **Add**, type `Domain Admins`, click **Check Names**, and then **OK**.
 <br>
 <img width="897" height="619" alt="Image" src="https://github.com/user-attachments/assets/33048959-f569-473f-9baf-4e2544b3b988" />
 <br>
