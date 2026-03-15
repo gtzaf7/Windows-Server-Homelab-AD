@@ -106,7 +106,8 @@ Now with the password complexity requirements disabled, we can follow the previo
 <br>
 <img width="897" height="619" alt="Image" src="https://github.com/user-attachments/assets/33048959-f569-473f-9baf-4e2544b3b988" />
 <br>
-> **Technical Rationale (Principle of Least Privilege):** It is a critical security violation to use the default `Administrator` account for daily tasks. Creating a personalized admin account provides auditing accountability (knowing *who* did *what*) and follows standard enterprise security frameworks.
+> **Technical Rationale & Security Groups:** > * **How Permissions Work:** In Active Directory, permissions are rarely assigned directly to individual users. Instead, we use **Security Groups**. By adding our user to the built-in **`Domain Admins`** group, they instantly inherit full administrative rights over the entire network. 
+> * **Principle of Least Privilege:** It is a critical security violation to use the default built-in `Administrator` account for daily tasks. Creating a personalized admin account provides auditing accountability (knowing exactly *who* did *what*) and follows standard enterprise security frameworks.
 
 **Step 7:** Populate the remaining departments with Standard Users. Following the same creation procedure (but **without** granting Domain Admin privileges), create standard employee accounts in their respective OUs:
 * Navigate to `_Corp \ Accounting \ Users` and create a standard user (e.g., First Name: `Eve`, Last Name: `Doe`, Logon name: `eve`).
