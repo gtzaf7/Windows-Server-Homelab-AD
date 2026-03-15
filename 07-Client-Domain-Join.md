@@ -84,7 +84,7 @@ Click **OK**.
 <img width="417" height="473" alt="Image" src="https://github.com/user-attachments/assets/fcd6dd5b-b767-4328-beff-76e8e5c6e983" />
 <br>
 
-**Step 11:** Switch back to the Server (`DC01`), open **Active Directory Users and Computers**, and click on the default **Computers** container. The newly joined client machine will appear here.
+**Step 11:** Now, let's switch back to the Server (`DC01`), open **Active Directory Users and Computers**, and click on the default **Computers** container. The newly joined client machine will appear here.
 
 <br>
 <img width="700" height="263" alt="Image" src="https://github.com/user-attachments/assets/3e4e5960-713b-4b20-ba66-c7679a936454" />
@@ -95,3 +95,18 @@ Click **OK**.
 <br>
 <img width="495" height="386" alt="Image" src="https://github.com/user-attachments/assets/a093ae1f-8277-43ee-bdb2-f1f28143317d" />
 <br>
+
+---
+
+## 🔁 Part 4: Scaling the Network (Adding the Remaining Departments)
+
+To fully populate our simulated corporate environment and utilize the Organizational Units (OUs) created in Phase 6, the exact same Domain Join procedure is repeated for the remaining hardware.
+
+**The Process for Additional Workstations:**
+For each new client machine (e.g., the Accounting Laptop and the Management Tablet/VM), the following steps are executed:
+1. **Network Config:** Point the client's IPv4 DNS to `DC01` (`192.168.2.9`) and disable IPv6 to prevent resolution conflicts.
+2. **Domain Join:** Rename the PC (e.g., `LAPTOP-ACC`, `TABLET-MAN`) and join it to `homelab.local` using the Domain Admin credentials.
+3. **Active Directory Organization:** On the Server, move the newly joined computer objects from the default `Computers` container into their respective OUs (`_Corp \ Accounting \ Computers` and `_Corp \ Management \ Computers`).
+4. **User Login:** Upon restart, employees log in using their specific standard user accounts (e.g., `eve` for Accounting, `jimmy` for Management).
+
+> **Technical Rationale:** By moving the newly joined computers into their dedicated departmental OUs, we prepare the environment for targeted Group Policy Objects (GPOs). For example, a security policy designed for the Accounting computers will not accidentally affect the Management devices.
