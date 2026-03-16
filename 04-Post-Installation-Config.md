@@ -52,6 +52,7 @@ In **Server Manager > Local Server**, click on **Remote Desktop** (currently Dis
 
 <img width="476" height="549" alt="image" src="https://github.com/user-attachments/assets/5f6b5235-6f72-4dd6-9b8f-b1a13b0d6f3f" />
 
+
 <img width="283" height="20" alt="image" src="https://github.com/user-attachments/assets/ead225de-1122-4c59-a55f-fb1cced31141" />
 
 > **Technical Rationale:** Enabling RDP is an enterprise standard. It allows System Administrators to manage the server remotely via the network without requiring direct access to the hypervisor console.
