@@ -26,7 +26,7 @@
 
 To understand what we just configured, here is a simple breakdown of our Bridged network topology:
 
-<img width="804" height="428" alt="Network Topology Diagram" src="https://github.com/user-attachments/assets/d5c82769-6344-4572-8565-f1d107c9598d" />
+<img width="1381" height="655" alt="image" src="https://github.com/user-attachments/assets/4174c68f-4d2d-47f8-86a9-dde728a6b75d" />
 
 * **The Default Gateway:** Our physical router (from the ISP) serves as the default gateway for the entire network.
 * **The Virtual Bridge (VMnet0):** Think of VMnet0 as an invisible, virtual Layer 2 switch inside our PC. It acts as a direct cable connecting our physical network card to the virtual world.
