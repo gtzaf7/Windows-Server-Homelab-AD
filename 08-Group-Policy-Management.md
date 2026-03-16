@@ -117,7 +117,7 @@ Now, let's automatically provide the entire company with a shared network drive 
 * Try to open the **Control Panel**. A restriction message will immediately pop up saying: *"This operation has been cancelled due to restrictions in effect on this computer. Please contact your system administrator."*
 
 <br>
-<img width="1027" height="769" alt="image" src="https://github.com/user-attachments/assets/f82309df-e7ba-4a88-aa31-6676b9e04064" />
+<img width="997" height="748" alt="image" src="https://github.com/user-attachments/assets/f2b06ba7-b74d-4b0c-80e5-f385aa75d50b" />
 <img width="557" height="179" alt="image" src="https://github.com/user-attachments/assets/09a80155-1f9e-4d56-915a-0710021f8d61" />
 
 <br>
