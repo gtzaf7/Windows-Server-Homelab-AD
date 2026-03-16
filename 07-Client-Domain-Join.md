@@ -9,13 +9,17 @@
 Before a computer can join a domain, it must be able to "find" the Domain Controller on the network. By default, client computers use the router's DNS or public DNS (like Google's `8.8.8.8`), which have no idea what `homelab.local` is. We must point the client's DNS directly to our server.
 
 **Step 1:** On the Client Windows machine, open **Network Connections** (`ncpa.cpl`), right-click the active network adapter, and select **Properties**.
+
 <br>
 <img width="400" height="204" alt="Image" src="https://github.com/user-attachments/assets/b280561e-50b8-4a14-bb08-942d8b1c3726" />
 <img width="422" height="269" alt="Image" src="https://github.com/user-attachments/assets/95504e6a-3db3-4dba-b1f8-6e04f5b7b117" />
 <br>
+
 **Step 2:** Double-click **Internet Protocol Version 4 (TCP/IPv4)**.
+
 **Step 3:** You can leave the IP address as Automatic (DHCP) or set a Static IP, but you **must** change the **Preferred DNS server** to the IP address of `DC01`:
 * **Preferred DNS Server:** `192.168.2.9`
+
 Click **OK** to save.
 
 <br>
@@ -24,12 +28,11 @@ Click **OK** to save.
 
 **Step 4:** Open **Command Prompt** on the client and verify connectivity by typing: `ping homelab.local`. It should successfully reply with the server's IP (`192.168.2.9`), proving that DNS resolution is working.
 
-**SOMETHING IMPORTANT:** So, when I changed the Preferred DNS to the server's IP I got a response. On the other hand, when I pinged the 'homelab.local' I got this response: `Ping request could not find host homelab.local. Please check the name and try again.`
+**SOMETHING IMPORTANT:** So, when I changed the Preferred DNS to the server's IP I got a response. On the other hand, when I pinged the `homelab.local` I got this response: `Ping request could not find host homelab.local. Please check the name and try again.`
 
 **WHAT IS THE CAUSE?** Modern Windows operating systems are programmed to prioritize IPv6 over IPv4. Because this Virtual Machine's network adapter is bridged to the host's home network, the physical router was silently assigning an IPv6 DNS server to the virtual network adapter. The VM prioritized this external IPv6 DNS (which knows nothing about our internal `homelab.local` domain) and completely bypassed our custom IPv4 DNS setting.
 
-**HOW TO FIX IT?** 
-1. Open **Network Connections** (`ncpa.cpl`), right-click the active network adapter, and select **Properties**.
+**HOW TO FIX IT?** 1. Open **Network Connections** (`ncpa.cpl`), right-click the active network adapter, and select **Properties**.
 2. Find the **Internet Protocol Version 6 (TCP/IPv6)**, and **uncheck** the box to disable it.
 3. Click **OK**.
 4. Open CMD and type `ipconfig /flushdns` to clear the cached failed attempts.
@@ -39,25 +42,27 @@ Click **OK** to save.
 <img width="548" height="237" alt="Image" src="https://github.com/user-attachments/assets/42b07e8a-e910-4a82-bdb5-dcc27c8705a8" />
 <br>
 
-> **Technical Rationale:** Active Directory is critically dependent on DNS. The Domain Controller (`DC01`) holds the specific DNS records (SRV records) that tell the client exactly where to send authentication requests. If the client's DNS points anywhere else, the domain join will fail with a "Domain Controller cannot be found" error.
+> **Technical Explanation:** Active Directory is critically dependent on DNS. The Domain Controller (`DC01`) holds the specific DNS records (SRV records) that tell the client exactly where to send authentication requests. If the client's DNS points anywhere else, the domain join will fail with a "Domain Controller cannot be found" error.
 
 ---
 
 ## Part 2: Joining the Domain
 
 **Step 5:** On the Client machine, open **Settings > System > About** and click on **Advanced system settings** (or **Domain or workgroup** depending on the Windows version).
+
 **Step 6:** In the System Properties window, go to the **Computer Name** tab and click **Change...**
+
 **Step 7:** First, ensure the **Computer name** is something logical (e.g., `DESKTOP-IT` or `LAPTOP-01`). Then, under "Member of", select **Domain** and type: `homelab.local`. Click **OK**.
 
 <br>
 <img width="641" height="384" alt="Image" src="https://github.com/user-attachments/assets/e103e929-e4d7-44af-b85b-96a7c77825c6" />
-
 <img width="313" height="384" alt="Image" src="https://github.com/user-attachments/assets/7010210c-ccf0-4781-8344-bf30e5001e3f" />
 <br>
 
 **Step 8:** A Windows Security prompt will appear. You must enter the credentials of an account with permission to join computers to the domain. Enter the Domain Admin credentials we created in Phase 6:
 * **Username:** `homelab\admin` (or `admin@homelab.local`)
 * **Password:** *[Your Admin Password]*
+
 Click **OK**.
 
 <br>
@@ -68,7 +73,6 @@ Click **OK**.
 
 <br>
 <img width="291" height="150" alt="Image" src="https://github.com/user-attachments/assets/73d037d4-8cbe-4304-a7c2-fdd657220c9f" />
-
 <img width="351" height="182" alt="Image" src="https://github.com/user-attachments/assets/837badef-5618-4a45-882c-a50086a9ce80" />
 <br>
 
@@ -80,7 +84,6 @@ Click **OK**.
 
 <br>
 <img width="931" height="699" alt="Image" src="https://github.com/user-attachments/assets/1ece0ea4-d015-40da-8314-29bf0277625a" />
-
 <img width="417" height="473" alt="Image" src="https://github.com/user-attachments/assets/fcd6dd5b-b767-4328-beff-76e8e5c6e983" />
 <br>
 
@@ -98,7 +101,7 @@ Click **OK**.
 
 ---
 
-## 🔁 Part 4: Scaling the Network (Adding the Remaining Departments)
+## Part 4: Scaling the Network (Adding the Remaining Departments)
 
 To fully populate our simulated corporate environment and utilize the Organizational Units (OUs) created in Phase 6, the exact same Domain Join procedure is repeated for the remaining hardware.
 
@@ -109,4 +112,4 @@ For each new client machine (e.g., the Accounting Laptop and the Management Tabl
 3. **Active Directory Organization:** On the Server, move the newly joined computer objects from the default `Computers` container into their respective OUs (`_Corp \ Accounting \ Computers` and `_Corp \ Management \ Computers`).
 4. **User Login:** Upon restart, employees log in using their specific standard user accounts (e.g., `eve` for Accounting, `jimmy` for Management).
 
-> **Technical Rationale:** By moving the newly joined computers into their dedicated departmental OUs, we prepare the environment for targeted Group Policy Objects (GPOs). For example, a security policy designed for the Accounting computers will not accidentally affect the Management devices.
+> **Technical Explanation:** By moving the newly joined computers into their dedicated departmental OUs, we prepare the environment for targeted Group Policy Objects (GPOs). For example, a security policy designed for the Accounting computers will not accidentally affect the Management devices.
