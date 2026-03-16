@@ -21,13 +21,14 @@ Before creating any objects, a System Administrator must map out the directory s
       * `Users` (For Executives/Managers)
       * `Computers` (Target destination for Laptop #2 & the Windows Tablet)
 
-> **Technical Rationale:** Creating a custom Root OU (like `_Corp`) isolates our actual company assets from the built-in Windows containers. This makes applying global security policies (GPOs) to our entire company much safer and easier. *Note: The Domain Controller (`DC01`) will remain in the default `Domain Controllers` container, which is an enterprise security best practice.*
+> **Technical Explanation:** Creating a custom Root OU (like `_Corp`) isolates our actual company assets from the built-in Windows containers. This makes applying global security policies (GPOs) to our entire company much safer and easier. *Note: The Domain Controller (`DC01`) will remain in the default `Domain Controllers` container, which is an enterprise security best practice.*
 
 ---
 
 ## Part 2: Implementation Steps
 
 **Step 1:** On `DC01`, open **Server Manager**, click **Tools**, and select **Active Directory Users and Computers (ADUC)**.
+
 <br>
 <img width="1226" height="420" alt="Image" src="https://github.com/user-attachments/assets/4a5fe7be-1c64-48fe-851c-a4d7d2fbef14" />
 <br>
@@ -36,9 +37,7 @@ Before creating any objects, a System Administrator must map out the directory s
 
 <br>
 <img width="902" height="614" alt="Image" src="https://github.com/user-attachments/assets/670334ac-4cfa-4fad-8810-092c65c595bc" />
-
 <img width="515" height="449" alt="Image" src="https://github.com/user-attachments/assets/3fe45cb2-b593-43b2-acf6-0d1c185c4068" />
-
 <img width="258" height="234" alt="Image" src="https://github.com/user-attachments/assets/ffc9c9f5-a465-460d-b5d3-22a26a3f2cbc" />
 <br>
 
@@ -58,6 +57,7 @@ Before creating any objects, a System Administrator must map out the directory s
 * **First Name:** `Admin`
 * **Last Name:** `YourName` (e.g., Doe)
 * **User logon name:** `admin`
+
 <br>
 <img width="522" height="442" alt="Image" src="https://github.com/user-attachments/assets/9fdb0cce-9df5-4b15-b6f9-4474e20801b4" />
 <br>
@@ -66,32 +66,36 @@ Click **Next**, assign a strong password, check **"Password never expires"** (fo
 
 <br>
 <img width="512" height="440" alt="Image" src="https://github.com/user-attachments/assets/33c78bcf-2336-404a-9a70-02b4c750f7b9" />
-
 <img width="514" height="434" alt="Image" src="https://github.com/user-attachments/assets/6e470260-9a49-4868-9eaf-e02defd1db19" />
 <br>
 
 **Something Important:** When I clicked 'Finish', I got this error: 
+
 <br>
 <img width="505" height="230" alt="Image" src="https://github.com/user-attachments/assets/9ed762c7-8fa2-489c-ae4c-6abc73e955ec" />
 <br>
+
 This error indicates that the password for the new user does not meet the default Active Directory password complexity requirements. For the sake of this Lab, we are going to disable the password complexity requirements so we can use simpler passwords for testing.
 
 **How to solve it:**
 **Step 1:** On `DC01`, open **Server Manager**, click **Tools**, and select **Group Policy Management**.
 **Step 2:** Expand the tree on the left: `Forest: homelab.local` > `Domains` > `homelab.local`.
 **Step 3:** Right-click the **Default Domain Policy** and select **Edit...**. This opens the Group Policy Management Editor.
+
 <br>
 <img width="774" height="546" alt="Image" src="https://github.com/user-attachments/assets/e91022f3-e131-4ccb-8528-48c237081d05" />
 <br>
-**Step 4:** Navigate to the exact policy path:
-`Computer Configuration` > `Policies` > `Windows Settings` > `Security Settings` > `Account Policies` > `Password Policy`.
+
+**Step 4:** Navigate to the exact policy path: `Computer Configuration` > `Policies` > `Windows Settings` > `Security Settings` > `Account Policies` > `Password Policy`.
 **Step 5:** On the right pane, double-click **Password must meet complexity requirements**, set it to **Disabled**, and click OK. 
+
 <br>
 <img width="815" height="593" alt="Image" src="https://github.com/user-attachments/assets/d255ff66-ea56-4897-8f36-8131bf3e09a7" />
 <br>
+
 **Step 6:** Close the Group Policy Editor. 
-**Step 7:** To apply the changes immediately, open **Command Prompt** and type the following command:
-`gpupdate /force`
+**Step 7:** To apply the changes immediately, open **Command Prompt** and type the following command: `gpupdate /force`
+
 <br>
 <img width="510" height="208" alt="Image" src="https://github.com/user-attachments/assets/922e5154-4c5c-4ecb-88d6-48f9869cbefb" />
 <br>
@@ -103,10 +107,12 @@ Now with the password complexity requirements disabled, we can follow the previo
 <br>
 
 **Step 6:** Grant the new user administrative privileges. Right-click the new user, select **Properties**, go to the **Member Of** tab, click **Add**, type `Domain Admins`, click **Check Names**, and then **OK**.
+
 <br>
 <img width="897" height="619" alt="Image" src="https://github.com/user-attachments/assets/33048959-f569-473f-9baf-4e2544b3b988" />
 <br>
-> **Technical Rationale & Security Groups:** > * **How Permissions Work:** In Active Directory, permissions are rarely assigned directly to individual users. Instead, we use **Security Groups**. By adding our user to the built-in **`Domain Admins`** group, they instantly inherit full administrative rights over the entire network. 
+
+> **Technical Explanation & Security Groups:** > * **How Permissions Work:** In Active Directory, permissions are rarely assigned directly to individual users. Instead, we use **Security Groups**. By adding our user to the built-in **`Domain Admins`** group, they instantly inherit full administrative rights over the entire network. 
 > * **Principle of Least Privilege:** It is a critical security violation to use the default built-in `Administrator` account for daily tasks. Creating a personalized admin account provides auditing accountability (knowing exactly *who* did *what*) and follows standard enterprise security frameworks.
 
 **Step 7:** Populate the remaining departments with Standard Users. Following the same creation procedure (but **without** granting Domain Admin privileges), create standard employee accounts in their respective OUs:
@@ -115,12 +121,10 @@ Now with the password complexity requirements disabled, we can follow the previo
 
 <br>
 <img width="631" height="134" alt="Image" src="https://github.com/user-attachments/assets/689e5c6a-1263-426b-8239-cbd51b5bf725" />
-
 <img width="652" height="209" alt="Image" src="https://github.com/user-attachments/assets/8db7ed45-edae-47c4-9d16-5ba41c679c40" />
 <br>
 
-> **Technical Rationale:** Creating standard user accounts for everyday employees is a core security principle. These accounts have restricted privileges. If an employee's laptop or tablet is compromised by malware, the attacker cannot make domain-wide changes or access sensitive server configurations, which protects the entire network.
-
+> **Technical Explanation:** Creating standard user accounts for everyday employees is a core security principle. These accounts have restricted privileges. If an employee's laptop or tablet is compromised by malware, the attacker cannot make domain-wide changes or access sensitive server configurations, which protects the entire network.
 
 ---
 
