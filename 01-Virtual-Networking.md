@@ -18,7 +18,8 @@
 
 <img width="745" height="664" alt="VMnet0 Configuration" src="https://github.com/user-attachments/assets/38eb67e0-22b9-4fde-ab96-fc61290a93e8" />
 
-<img width="692" height="597" alt="Network Adapter Selection" src="https://github.com/user-attachments/assets/1311d89a-99fc-40e8-ab9a-0286d55b885f" />
+<img width="597" height="522" alt="image" src="https://github.com/user-attachments/assets/c376d3ee-48c5-4119-994a-be851bb3fdd4" />
+
 
 ---
 
