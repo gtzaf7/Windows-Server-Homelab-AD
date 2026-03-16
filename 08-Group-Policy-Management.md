@@ -30,7 +30,7 @@ Before deploying policies that require files (like wallpapers or shared document
 <img width="427" height="531" alt="image" src="https://github.com/user-attachments/assets/88fa9f40-2c21-45e3-92e1-fa6bcdd72099" />
 <br>
 
-> **Technical Rationale:** A centralized network share allows us to host files that Group Policies will call upon. Instead of manually copying the wallpaper to 100 different laptops, the GPO simply tells the laptops: *"Look at `\\192.168.2.9\CorpShare\IT_Assets\wallpaper.jpg` and make it your background."*
+> **Technical Explanation:** A centralized network share allows us to host files that Group Policies will call upon. Instead of manually copying the wallpaper to 100 different laptops, the GPO simply tells the laptops: *"Look at `\\192.168.2.9\CorpShare\IT_Assets\wallpaper.jpg` and make it your background."*
 
 ---
 
@@ -50,8 +50,8 @@ Our first policy will prevent standard users in the Accounting department from t
 
 <img width="550" height="330" alt="image" src="https://github.com/user-attachments/assets/1af86c1e-956b-4c07-a3fd-7d2c86db9a07" />
 
-**Step 9:** In the Group Policy Management Editor, navigate to:
-`User Configuration` > `Policies` > `Administrative Templates` > `Control Panel`
+**Step 9:** In the Group Policy Management Editor, navigate to: `User Configuration` > `Policies` > `Administrative Templates` > `Control Panel`
+
 **Step 10:** On the right pane, double-click **"Prohibit access to Control Panel and PC settings"**, set it to **Enabled**. Apply the settings and then click OK. Close the editor.
 
 <br>
@@ -66,15 +66,25 @@ Our first policy will prevent standard users in the Accounting department from t
 Now, let's automatically provide the entire company with a shared network drive for easy file exchange.
 
 **Step 11:** Back in **Group Policy Management**, right-click the parent `_Corp` OU (so all departments inherit it) and select **"Create a GPO in this domain, and Link it here..."**. Name it `CORP_Mapped_Drive`.
+
 <img width="819" height="461" alt="image" src="https://github.com/user-attachments/assets/c7f3e2e7-41d1-421e-af6b-181b208f6e88" />
+
 **Step 12:** Right-click `CORP_Mapped_Drive` and select **Edit**.
+
 <img width="537" height="489" alt="image" src="https://github.com/user-attachments/assets/1aa61e15-3d9d-42f7-836d-4db2e76012c9" />
+
 **Step 13:** Navigate to: `User Configuration` > `Preferences` > `Windows Settings` > `Drive Maps`.
+
 <img width="925" height="675" alt="image" src="https://github.com/user-attachments/assets/9cc25dfd-c168-4f10-9301-e8c1ff8d7af6" />
+
 **Step 14:** Right-click **Drive Maps**, select **New > Mapped Drive**.
+
 <img width="564" height="276" alt="image" src="https://github.com/user-attachments/assets/bbde5c0f-531c-48d4-a025-0d1ce239f919" />
+
 **Step 15:** Set the **Action** to `Update`. For the **Location**, type the exact network path to the shared folder we created: `\\192.168.2.9\CorpShare\Public`.
+
 <img width="472" height="541" alt="image" src="https://github.com/user-attachments/assets/b1a88c9b-877a-4ca8-9d6b-921f12d070f7" />
+
 **Step 16:** Check the box **"Reconnect"**. Label it as `Company Share`, and assign it a specific **Drive Letter** (e.g., `S:`). Click Apply, then OK and close the editor.
 
 <br>
@@ -85,17 +95,24 @@ Now, let's automatically provide the entire company with a shared network drive 
 
 ## Part 4: Corporate Branding GPO (Standard Wallpaper)
 
-
-
 **Step 17:** In **Group Policy Management**, right-click the `_Corp` OU again, create a new GPO named `CORP_Wallpaper`, and Edit it.
+
 <img width="544" height="241" alt="image" src="https://github.com/user-attachments/assets/ddaea78f-deba-41b1-a1a0-9d04b1d5060e" />
+
 **Step 18:** Navigate to: `User Configuration` > `Policies` > `Administrative Templates` > `Desktop` > `Desktop`.
+
 <img width="1065" height="438" alt="image" src="https://github.com/user-attachments/assets/cb23e974-45bf-44a4-9eeb-ff43ea7dcb43" />
+
 **Step 19:** Double-click **"Desktop Wallpaper"**. Set it to **Enabled**.
+
 <img width="794" height="258" alt="image" src="https://github.com/user-attachments/assets/e7a7620a-3c23-41b4-9600-8f81171a0d22" />
+
 **Step 20:** In the **Wallpaper Name** field, type the exact network path to our image: `\\192.168.2.9\CorpShare\IT_Assets\comp_wallpaper.jpg`.
+
 <img width="270" height="181" alt="image" src="https://github.com/user-attachments/assets/c6990e54-a27f-4d52-955c-27477ba91968" />
+
 **Step 21:** Set the Wallpaper Style to **Fill** or **Stretch**. Click Apply, then OK and close the editor.
+
 <img width="236" height="35" alt="image" src="https://github.com/user-attachments/assets/e6e481b7-50e5-439b-bc64-ca32bfebb967" />
 
 ---
@@ -103,11 +120,10 @@ Now, let's automatically provide the entire company with a shared network drive 
 ## Part 5: Client Verification (The Magic of AD)
 
 **Step 22:** Go to your Client VM (Windows 10 Pro) and log in as the standard user from the Accounting department (e.g., `eve`).
-**Step 23:** Open Command Prompt and force the computer to immediately fetch the latest policies from the Server by typing:
-`gpupdate /force`
+
+**Step 23:** Open Command Prompt and force the computer to immediately fetch the latest policies from the Server by typing: `gpupdate /force`
 
 <img width="513" height="124" alt="image" src="https://github.com/user-attachments/assets/6623b158-2826-4ba8-987f-0a09851bda30" />
-
 
 *(Note: Sometimes a log off and log back in, or a restart, is required for the wallpaper to apply visually).*
 
@@ -124,4 +140,4 @@ Now, let's automatically provide the entire company with a shared network drive 
 <img width="556" height="131" alt="image" src="https://github.com/user-attachments/assets/4b9c9884-dec1-4c8d-bcb9-7e4ee824cb7e" />
 <br>
 
-> **Technical Rationale:** Group Policy Objects (GPOs) are the primary mechanism for centralizing management in a Windows environment. By utilizing GPOs at the OU level, we ensure that every machine or user placed within that organizational unit automatically receives the exact security settings, software, and resources they need, without any manual configuration on the endpoint itself.
+> **Technical Explanation:** Group Policy Objects (GPOs) are the primary mechanism for centralizing management in a Windows environment. By utilizing GPOs at the OU level, we ensure that every machine or user placed within that organizational unit automatically receives the exact security settings, software, and resources they need, without any manual configuration on the endpoint itself.
