@@ -69,7 +69,7 @@ Ensure both **Domain Name System (DNS) server** and **Global Catalog (GC)** are 
 <img width="549" height="371" alt="image" src="https://github.com/user-attachments/assets/45eb4510-3604-4e36-bc74-48a939b68c17" />
 <br>
 
-> **Technical Explanation:** > * **DNS Server:** Active Directory cannot function without DNS. Because no other DNS server exists in our lab to handle AD records, this DC must host the DNS zone.
+> **Technical Explanation:** **DNS Server:** Active Directory cannot function without DNS. Because no other DNS server exists in our lab to handle AD records, this DC must host the DNS zone.
 > * **DSRM Password:** This is a critical "safe mode" password for Active Directory. It is uniquely used by administrators to log into the database offline in case of catastrophic corruption or disaster recovery scenarios.
 
 **Step 9: DNS Options & Additional Options**
