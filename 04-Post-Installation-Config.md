@@ -20,7 +20,7 @@
 
 <br>
 
-> **Technical Rationale:** > * **Hostname (`DC01`):** A Domain Controller must have a fixed, identifiable hostname before promotion. Renaming a server *after* Active Directory is installed is a complex process that can easily corrupt the domain database.
+> **Technical Explanation:** > * **Hostname (`DC01`):** A Domain Controller must have a fixed, identifiable hostname before promotion. Renaming a server *after* Active Directory is installed is a complex process that can easily corrupt the domain database.
 > **Workgroup Selection:** We deliberately leave the server in a "Workgroup" at this stage because our target Domain does not exist yet. This specific server will be the one to create the new domain from scratch in the next phase (Active Directory Promotion). Attempting to select "Domain" here would result in an error.
 
 
@@ -43,7 +43,7 @@ Next, open **Network Connections**, right-click the network adapter (`Ethernet0`
 
 <br>
 
-> **Technical Rationale:** Domain Controllers strictly require a static IP address, as clients need a permanent, unchanging address to query for DNS and authentication. The Preferred DNS is set to the loopback address (`127.0.0.1`) because this server will be promoted to a DNS Server itself during the Active Directory setup.
+> **Technical Explanation:** Domain Controllers strictly require a static IP address, as clients need a permanent, unchanging address to query for DNS and authentication. The Preferred DNS is set to the loopback address (`127.0.0.1`) because this server will be promoted to a DNS Server itself during the Active Directory setup.
 
 **Step 3: Enable Remote Desktop (RDP)**
 In **Server Manager > Local Server**, click on **Remote Desktop** (currently Disabled) and check **"Allow remote connections to this computer"**.
@@ -55,7 +55,7 @@ In **Server Manager > Local Server**, click on **Remote Desktop** (currently Dis
 
 <img width="283" height="20" alt="image" src="https://github.com/user-attachments/assets/ead225de-1122-4c59-a55f-fb1cced31141" />
 
-> **Technical Rationale:** Enabling RDP is an enterprise standard. It allows System Administrators to manage the server remotely via the network without requiring direct access to the hypervisor console.
+> **Technical Explanation:** Enabling RDP is an enterprise standard. It allows System Administrators to manage the server remotely via the network without requiring direct access to the hypervisor console.
 
 **Step 4: Windows Firewall (Enable ICMPv4/Ping)**
 Open **Windows Defender Firewall with Advanced Security**, navigate to **Inbound Rules**, locate the rule named **File and Printer Sharing (Echo Request - ICMPv4-In)**, right-click, and select **Enable Rule**.
@@ -69,7 +69,7 @@ Open **Windows Defender Firewall with Advanced Security**, navigate to **Inbound
 <img width="738" height="731" alt="image" src="https://github.com/user-attachments/assets/25842db1-9bd2-4c4a-8df1-52a34b7da619" />
 
 
-> **Technical Rationale:** By default, Windows Server blocks incoming Ping requests for security purposes. Enabling this specific rule allows the physical host machine and future client VMs to test network connectivity to the Domain Controller during network troubleshooting.
+> **Technical Explanation:** By default, Windows Server blocks incoming Ping requests for security purposes. Enabling this specific rule allows the physical host machine and future client VMs to test network connectivity to the Domain Controller during network troubleshooting.
 
 **Step 5: Time Synchronization (NTP)**
 First, we must ensure the virtual machine does not inherit time from the physical host. Right-click the `DC01` VM in VMware Workstation, go to **Settings > Options > VMware Tools**, and uncheck **"Synchronize guest time with host"**.
@@ -102,7 +102,7 @@ Restart **Windows Time Service**
 <img width="1205" height="794" alt="image" src="https://github.com/user-attachments/assets/34de8407-797e-41cd-ad72-bf731eb5f2ac" />
 
 
-> **Technical Rationale:** Active Directory relies heavily on the **Kerberos protocol** for authentication, which strictly requires all machines in the domain to have synchronized clocks (typically within a 5-minute tolerance). Configuring a reliable external NTP server prevents catastrophic authentication failures.
+> **Technical Explanation:** Active Directory relies heavily on the **Kerberos protocol** for authentication, which strictly requires all machines in the domain to have synchronized clocks (typically within a 5-minute tolerance). Configuring a reliable external NTP server prevents catastrophic authentication failures.
 
 **Step 6: Security and Patch Management (Windows Updates)**
 Open **Settings > Update & Security > Windows Update** and click **Check for updates**. Install all available critical and security updates.
@@ -114,7 +114,7 @@ Open **Settings > Update & Security > Windows Update** and click **Check for upd
 <img width="185" height="81" alt="image" src="https://github.com/user-attachments/assets/99d8c590-fbf2-4dc3-8af6-dbbddc237dd3" />
 
 
-> **Technical Rationale:** A Domain Controller is the most critical security asset in an infrastructure. Before promoting a server to a DC, it must be fully patched against known vulnerabilities to ensure a secure foundation.
+> **Technical Explanation:** A Domain Controller is the most critical security asset in an infrastructure. Before promoting a server to a DC, it must be fully patched against known vulnerabilities to ensure a secure foundation.
 
 **Step 7: System Reboot**
 **Restart** the server to apply the updates, the new hostname, and finalize all network and system configurations.
