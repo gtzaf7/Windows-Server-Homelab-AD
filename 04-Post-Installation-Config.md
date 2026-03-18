@@ -74,8 +74,13 @@ Open **Windows Defender Firewall with Advanced Security**, navigate to **Inbound
 **Step 5: Time Synchronization (NTP)**
 First, we must ensure the virtual machine does not inherit time from the physical host. Right-click the `DC01` VM in VMware Workstation, go to **Settings > Options > VMware Tools**, and uncheck **"Synchronize guest time with host"**.
 
+<br>
 <img width="746" height="728" alt="image" src="https://github.com/user-attachments/assets/b835f71c-d57a-4d72-9750-f1c9d949eb82" />
+<br>
 
+Before synchronizing, ensure your server is set to the correct Timezone so that the fetched UTC time translates correctly to your local display time. Open **Command Prompt** as Administrator and set the timezone (e.g., for Greece):
+
+`tzutil /s "GTB Standard Time"`
 
 After, open **Command Prompt** as Administrator and configure the `w32time` service to sync with external Greek NTP servers using the following commands:
 
